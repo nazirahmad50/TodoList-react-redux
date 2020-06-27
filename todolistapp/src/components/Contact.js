@@ -1,6 +1,8 @@
 import React from "react";
 
- const Contact = ()=>{
+// the props is automatically added by route inside the browserrouter app.js
+ const Contact = (props)=>{
+     console.log(props)
     return(
         <div className="container">
             <h4 className="center">Contact</h4>

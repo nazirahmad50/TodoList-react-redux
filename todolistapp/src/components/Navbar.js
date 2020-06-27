@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, withRouter} from "react-router-dom";
 
  const Navbar = ()=>{
     return(
@@ -18,4 +18,6 @@ import {Link, NavLink} from "react-router-dom";
         </nav>
     )
 }
-export default Navbar;
+// the withRouter supercharged the navbar component and now we can use the props from the react route
+// the 'withRouter' is a high order component that supercharges any componenet passed
+export default withRouter(Navbar);
