@@ -1,4 +1,5 @@
 import React from "react";
+import RainbowHOC from "./RainbowHOC";
 
  const About = ()=>{
     return(
@@ -8,4 +9,5 @@ import React from "react";
         </div>
     )
 }
-export default About;
+//pass the About comp to the high order component 
+export default RainbowHOC(About);
