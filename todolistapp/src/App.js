@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Todos from "./Todos";
 import AddTodo from "./AddTodo";
 
@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Post from "./components/Post";
 
 
 
@@ -49,9 +50,14 @@ class App extends Component{
       <div className="todo-app container">
         <BrowserRouter>
           <Navbar/>
-          <Route exact path="/" component={Home}/>
-          <Route path="/about" component={About}/>
-          <Route path="/contact" component={Contact}/>
+          {/*<Switch> returns only one first matching route*/}
+          {/*exact returns any number of routes that match exactly*/}
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/about" component={About}/>
+            <Route path="/contact" component={Contact}/>
+            <Route path="/:post_id" component={Post}/>
+          </Switch>
         </BrowserRouter>
         <h1 className="center blue-text">Tods's</h1>
         <Todos todos={this.state.todos} deleteTodo={this.deleteTodo}/>
