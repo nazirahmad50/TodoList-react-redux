@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import Pokeball from "../pokeball.png";
 
 // convert to class instead of func because funcs cant use lifecycle hooks such as 'componentDidMount'
  class Home extends Component{
@@ -24,6 +25,7 @@ import {Link} from "react-router-dom";
            posts.map(post =>{
                return(
                 <div className="post card" key={post.id}>
+                    <img src={Pokeball}></img>
                     <div className="card-content">
                         <Link to={"/" + post.id}>
                             <span className="card-title">{post.title}</span>
@@ -39,7 +41,7 @@ import {Link} from "react-router-dom";
         )
 
         return(
-            <div className="container">
+            <div className="container home">
                 <h4 className="center">Home</h4>
                 {postLst}
             </div>
