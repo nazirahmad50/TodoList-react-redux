@@ -1,26 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
 import {Link} from "react-router-dom";
 import Pokeball from "../pokeball.png";
+import {connect} from "react-redux";
 
 // convert to class instead of func because funcs cant use lifecycle hooks such as 'componentDidMount'
  class Home extends Component{
-
-    state = {
-        posts: []
-    }
-
-     componentDidMount(){
-         axios.get("https://jsonplaceholder.typicode.com/posts")
-         .then(res =>{
-             // when the state is updated reatc call render
-            this.setState({
-                posts: res.data.slice(0, 10)
-            })
-         })
-     }
      render(){
-        const {posts} = this.state;
+        const {posts} = this.props;
         const postLst = posts.length ? (
            posts.map(post =>{
                return(
@@ -49,4 +35,12 @@ import Pokeball from "../pokeball.png";
      }
  
 }
-export default Home;
+
+const mapStateToProps = (state) =>{
+    return{
+        posts: state.posts
+    }
+}
+
+// 'connect' return a HOC then the Home comp is wrapped in that returned HOC
+export default connect(mapStateToProps)(Home);

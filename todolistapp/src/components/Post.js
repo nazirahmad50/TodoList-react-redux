@@ -1,31 +1,23 @@
 import React, { Component } from "react";
-import axios from "axios";
-
+import {connect} from "react-redux";
+import {deletePost} from "../actions/postAction";
 class Post extends Component{
 
-    state = {
-        post:null
+    HandleClick = () =>{
+        this.props.deletePost(this.props.post.id);
+        // redirect to homepage
+        this.props.history.push("/");
     }
 
-    componentDidMount(){
-        // we automatically get props in class based comp 
-        // so we get the route info becuase its used as route in app.js
-        let id = this.props.match.params.post_id;
-       
-        axios.get("https://jsonplaceholder.typicode.com/posts/" + id)
-        .then(res =>{
-            // when the state is updated reatc call render
-           this.setState({
-               post: res.data
-           })
-        })
-    }
     render(){
 
-        const post = this.state.post ? (
+        const post = this.props.post ? (
             <div className="post">
-                <h2 className="center">{this.state.post.title}</h2>
-                <p>{this.state.post.body}</p>
+                <h2 className="center">{this.props.post.title}</h2>
+                <p>{this.props.post.body}</p>
+                <div className="center">
+                    <button className="btn grey" onClick={this.HandleClick}>DELETE Post</button>
+                </div>
             </div>
          ) 
         :(
@@ -41,4 +33,22 @@ class Post extends Component{
 
 }
 
-export default Post;
+// 'ownProps' are the props that already exist in the class such as the router props
+const mapStateToProps = (state, ownProps) =>{
+    let id = ownProps.match.params.post_id;
+
+    return{
+        post: state.posts.find(x => x.id === id)
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        // dispatch an aciton via 'deletePost' func to root reducer
+        // pass id as additional payload data
+        deletePost: (id) =>{dispatch(deletePost(id))}
+    }
+}
+
+// map state to props comes first
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
